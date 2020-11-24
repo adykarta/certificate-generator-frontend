@@ -1,6 +1,6 @@
 import React from "react";
 
 const DummyPage = () => {
-  return <>Hello World!</>;
+  return <>Hello World!!</>;
 };
 export default DummyPage;
