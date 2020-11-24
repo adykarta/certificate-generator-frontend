@@ -1,8 +1,10 @@
 import React from 'react';
-import DummyPage from './pages/Dummy';
+import Homepage from './pages/Homepage';
+import UploadOne from './pages/Upload/One'
 
 const routes = [
-    { path: '/', element: <DummyPage /> },
+    { path: '/', element: <Homepage /> },
+    { path: '/upload-one', element: <UploadOne /> },
 ];
 
 export default routes;
