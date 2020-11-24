@@ -1,5 +1,5 @@
 import React, {useState, useMemo} from "react"
-import { Flex, Wrapper, Upload, Thumb, ThumbInner, Footer } from "./style.js"
+import { Flex, Wrapper, Upload, Button, Footer } from "./style.js"
 import Logo from "./Media/Logo2.svg"
 import { useDropzone } from 'react-dropzone';
 
@@ -40,55 +40,31 @@ const baseStyle = {
   
 
 const OneUpload = () => {
-    const [values, setValues] = useState(false)
-    const {
-        getRootProps,
-        getInputProps,
-        isDragActive,
-        isDragAccept,
-        isDragReject,
-        open
-      } = useDropzone({
+    const [files, setFiles] = useState([])
+    const { getRootProps, getInputProps} 
+    = useDropzone({
         accept: "image/*",
-        noClick: true,
-        noKeyboard: true,
         onDrop: acceptedFiles => {
-            var val = acceptedFiles.map(file =>
-                    Object.assign(file, {
+            setFiles(
+                acceptedFiles.map((file) => 
+                Object.assign(file, {
                     preview: URL.createObjectURL(file)
-                    })
-                ) 
-            
-            setValues(prev=>({...prev,file:[...prev['file'].concat(val)]}))
-      
+                    
+                }))
+            )
         }
       });
+      const images = files.map((file) => (
+        <div key={file.name}>
+            <div>
+               <p>{file.name}</p>
+            </div>
+            
+        </div>
+      ))
 
-      const style = useMemo(
-        () => ({
-          ...baseStyle,
-          ...(isDragActive ? activeStyle : {}),
-          ...(isDragAccept ? acceptStyle : {}),
-          ...(isDragReject ? rejectStyle : {})
-        }),
-        [isDragActive, isDragReject, isDragAccept]
-      );
-    
-
-      const thumbs =
-        values.file === null ? null : (
-            <Thumb key={values.file?.name}>
-                <ThumbInner>
-                    <img
-                    src={values.file?.preview}
-                    className="img"
-                    alt={values.file?.preview}
-                    />
-                </ThumbInner>
-            </Thumb>
-      );
   
-
+    console.log(files)
     return(
         <>
             <Wrapper>
@@ -98,42 +74,20 @@ const OneUpload = () => {
 
                     <Upload>
                         <Flex direction="column" justify="center" alignItems="center">
-                                {/* <input
-                                    type="file"
-                                    name="file"
-                                    id="contained-button-file"
-                                    style={{display: 'none'}}
-                                    // onChange={uploadImage}
-                                /> */}
-                           
-                                
-                                <label htmlFor="contained-button-file">
-                                    <div className="box" >
-                                    <div style={{width: '90%'}}>
-                                        <div {...getRootProps({ style })}>
-                                        <input {...getInputProps()} />
-                                        <div className="box"
-                                            display="flex"
-                                            alignItems="center"
-                                            onClick={open}
-                                            // className={classes.photo}
-                                        >
-                                        
-                                            <p color="textSecondary" variant="body1">
-                                            Upload
-                                            </p>
-                                        </div>
-                                        </div>
-
-                                        <aside style={thumbsContainer}>{thumbs}</aside>
-                                    </div>
-                                    </div>
-                                </label>
-                            
-                        </Flex>
-                       
+                            <div className="box">
+                                <div {...getRootProps()}>
+                                    <input {...getInputProps()} />
+                                    {files.length == 0 ?
+                                        <p>Upload photo</p>
+                                        :
+                                        <p>{files[0].name}</p>
+                                    }
+                                </div>   
+                            </div>
                         
+                        </Flex>
                     </Upload>
+                    <Button>Go!!!</Button>
                 </Flex>
                 
             </Wrapper>

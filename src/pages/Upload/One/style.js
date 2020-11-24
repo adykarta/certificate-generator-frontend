@@ -45,29 +45,18 @@ export const Upload = styled.div`
 
 `
 
-export const Thumb = styled.div`
-    display: 'inline-flex',
-    borderRadius: 2,
-    border: '1px solid #eaeaea',
-    marginBottom: 8,
-    marginRight: 8,
-    width: '100%',
-    height: '200px',
-    padding: 4,
-    boxSizing: 'border-box'
-
-`
-
-export const ThumbInner = styled.div`
-    display: 'flex',
-    minWidth: 0,
-    overflow: 'hidden'
-    .img{
-        display: block;
-        width: auto;
-        height: 100%;
-    }
-
+export const Button = styled.a`
+    display: inline-block;
+    border-radius: 5px;
+    padding: 1rem 0;
+    margin: 2.5rem 1rem;
+    width: 11rem;
+    background: #6F9E97;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    
 `
 
 export const Footer = styled.p`
