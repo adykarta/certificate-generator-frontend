@@ -105,7 +105,7 @@ const CoordinatePage = () => {
             </Card>
             <Card>
               <Flex direction="column" justify="center" alignItems="center">
-                <Flex direction="row" justify="end" alignItems="center">
+                <Flex direction="row" justify="center" alignItems="center">
                   <p style={dragStyle}>Column 1</p>
                   <p style={dragStyle}>Column 2</p>
                   <p style={dragStyle}>Column 3</p>
