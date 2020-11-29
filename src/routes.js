@@ -1,5 +1,4 @@
 import React from 'react';
-import DummyPage from './pages/Dummy';
 import CoordinatePage from './pages/Coordinate';
 import Homepage from './pages/Homepage';
 import UploadOne from './pages/Upload/One'

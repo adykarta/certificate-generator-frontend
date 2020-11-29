@@ -11,7 +11,7 @@ export const Flex = styled.div`
 `;
 
 export const Wrapper = styled.div`
-    margin-top: 5em;
+    margin-top: 2em;
     width: 100vw;
     display: flex;
     justify-content: center;
