@@ -11,19 +11,50 @@ const CoordinatePage = () => {
     column3: '',
   })
 
-  const handleChange = (opt) => event => {
+  const handleChange = (opt) => e => {
     if (opt === 1) {
-      setValues({ column1: event.target.value });
+      setValues({ column1: e.target.value });
     } else if (opt === 2) {
-      setValues({ column2: event.target.value });
+      setValues({ column2: e.target.value });
     } else {
-      setValues({ column3: event.target.value });
+      setValues({ column3: e.target.value });
     }
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (e) => {
     alert('A name was submitted: ' + values.column1);
-    event.preventDefault();
+    e.preventDefault();
+  }
+
+  const [isPressed, setIsPressed] = useState(false);
+  const [pos, setPos] = useState({
+    x: 0,
+    y: 0,
+  });
+
+  const dragMouseDown = (e) => {
+    e = e || window.event;
+    e.preventDefault();
+    setPos((prev) => ({ ...prev, x: e.clientX, y: e.clientY }));
+    setIsPressed(true);
+  };
+  function closeDragElement(e) {
+    console.log("in");
+    setIsPressed(false);
+  }
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+
+    let pos1 = pos.x - e.clientX;
+    let pos2 = pos.y - e.clientY;
+    setPos({
+      x: e.clientX,
+      y: e.clientY,
+    });
+
+    e.target.style.top = e.target.offsetTop - pos2 + "px";
+    e.target.style.left = e.target.offsetLeft - pos1 + "px";
   }
 
   const inputStyle = {
@@ -78,7 +109,6 @@ const CoordinatePage = () => {
                   value={values.column1}
                   onChange={handleChange(1)}
                 />
-                <CloseIcon />
                 <br />
                 <p style={{ margin: "15px 0px 0px 0px", color: "white" }}>
                   Column 2
@@ -89,6 +119,7 @@ const CoordinatePage = () => {
                   value={values.column2}
                   onChange={handleChange(2)}
                 />
+                <CloseIcon />
                 <br />
                 <p style={{ margin: "15px 0px 0px 0px", color: "white" }}>
                   Column 3
@@ -99,6 +130,7 @@ const CoordinatePage = () => {
                   value={values.column3}
                   onChange={handleChange(3)}
                 />
+                <CloseIcon />
                 <br />
                 <input style={submitStyle} type="submit" value="Submit" />
               </form>
@@ -106,15 +138,20 @@ const CoordinatePage = () => {
             <Card>
               <Flex direction="column" justify="center" alignItems="center">
                 <Flex direction="row" justify="center" alignItems="center">
-                  <p style={dragStyle}>Column 1</p>
-                  <p style={dragStyle}>Column 2</p>
-                  <p style={dragStyle}>Column 3</p>
-                </Flex>
-                <Flex direction="column" justify="center" alignItems="center">
+                  <div
+                    style={dragStyle}
+                    id="mydiv"
+                    onMouseOut={closeDragElement}
+                    onMouseDown={dragMouseDown}
+                    onMouseMove={isPressed ? elementDrag : null}
+                    onMouseUp={closeDragElement}
+                  >
+                    Column 1
+                  </div>
                   <img
                     src={Certificate}
                     alt="Certificate"
-                    style={{ width: "55%", height: "75%" }}
+                    style={{ width: "80%", height: "80%" }}
                   />
                 </Flex>
               </Flex>

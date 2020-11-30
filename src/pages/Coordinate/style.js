@@ -19,6 +19,17 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  #mydiv {
+    position: absolute;
+    z-index: 9;
+    background-color: #fefefe;
+    text-align: center;
+    border: 1px solid #d3d3d3;
+    width: 15%;
+    &:hover {
+      cursor: grab;
+    }
+  }
   p{
       font-size: 24px;
       font-weight: 400;
