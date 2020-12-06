@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { enumDeclaration } from '@babel/types';
 
 export const Flex = styled.div`
     display: flex;
@@ -6,7 +7,8 @@ export const Flex = styled.div`
     justify-content: ${({ justify }) => justify};
     align-items: ${({ alignItems }) => alignItems};
     flex-wrap: ${({ wrap }) => wrap};
-    width: 100%;
+    margin: ${({ margin }) => margin};
+    width: ${({ width }) => width};
     height: 100%;
 `;
 
@@ -39,10 +41,18 @@ export const Wrapper = styled.div`
   }
 `;
 
+export const WrapperImage = styled.div`
+  height:100%;
+  width: 100%;
+  background: url("${({ url }) => url}");
+  background-repeat: no-repeat;
+  background-size: contain, cover;
+`;
+
 export const Card = styled.div`
     background: #4C837A;
     margin: 1em;
-    width: 749px;
+    width: 80%;
     height: 358px;
     border-radius: 25px;
     .box{
