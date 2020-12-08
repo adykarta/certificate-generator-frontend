@@ -1,11 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useRoutes } from 'react-router-dom';
 import routes from './routes';
+import { PictureContext } from './utils/context'
+
 function App() {
   const routing = useRoutes(routes);
+  const [image, setImage] = useState('')
   return (
     <div className="App">
-      {routing}
+      <PictureContext.Provider value={{image, setImage}}>
+        {routing}
+      </PictureContext.Provider>
     </div>
   );
 }

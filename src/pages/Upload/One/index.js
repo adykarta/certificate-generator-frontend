@@ -1,6 +1,7 @@
-import React, {useState, Fragment, useEffect} from "react"
+import React, {useState, Fragment, useContext} from "react"
 import {Button, LinearProgress} from "@material-ui/core"
-import PictureContext from "../../../utils/context" 
+import {PictureContext} from "../../../utils/context" 
+import { useNavigate, Navigate } from "react-router-dom"
 import axios from 'axios'
 import { Flex, Wrapper, Upload, Footer } from "./style.js"
 import Logo from "./Media/Logo2.svg"
@@ -9,7 +10,8 @@ import { baseUrl} from '../../../utils/api'
 
 
 const OneUpload = () => {
-
+    const navigate = useNavigate()
+    const {image, setImage} = useContext(PictureContext)
     const [files, setFiles] = useState([])
     const [pic, setPic] = useState('')
     const [loading, setLoading] = useState(false)
@@ -39,8 +41,10 @@ const OneUpload = () => {
                 console.log(res.data)
                 console.log(res.data.data)
                 setPic(res.data.data.path)
+                setImage(res.data.data.path)
                 setLoading(false)
-                window.location.href = `/edit-one/?${res.data.data.path}`
+                // window.location.href = `/edit-one/`
+                navigate('/edit-one')
             })
             
         }
@@ -77,7 +81,7 @@ const OneUpload = () => {
                                 <div {...getRootProps()}>
                                     <input {...getInputProps()} />
                                     {files.length === 0 ?
-                                        <p>Upload photo</p>
+                                        <p>Upload Photo</p>
                                         :
                                         <p>{files[0].name}</p>
                                     }
@@ -95,7 +99,7 @@ const OneUpload = () => {
                         </Flex>
                         
                         :
-                        <img src={pic} alt="picturess" />
+                        <img src={image} alt="picturess" />
                     }
                 </Flex>
             </Wrapper>

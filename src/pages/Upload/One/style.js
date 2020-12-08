@@ -27,6 +27,7 @@ export const Wrapper = styled.div`
     }
     .submit{
         background: #6F9E97;
+        font-size: 17px;
         font-weight: bold;
         width: 11rem;
         padding: 0.7rem 0;

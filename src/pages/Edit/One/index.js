@@ -1,13 +1,13 @@
-import React, {useState, Fragment} from 'react'
+import React, {useState, Fragment, useContext} from 'react'
 import {Flex, Wrapper, Box, Edit} from './styles'
 import {Button} from "@material-ui/core"
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Logo from './Media/Logo2.svg'
-import { PictureConsumer } from '../../../utils/context'
+import { PictureContext } from '../../../utils/context'
 
 const OneEdit = () => {
-
+    const {image, setImage} = useContext(PictureContext)
     const [inputList, setInputList] = useState([
         {column: ""},
 
@@ -27,7 +27,7 @@ const OneEdit = () => {
         list.splice(index, 1)
         setInputList(list)
     }
-    const image = window.location.search.substring(1)
+    console.log(image)
     return(
         <Wrapper>
             <Flex direction="column" justify="center" alignItems="center">
@@ -75,7 +75,7 @@ const OneEdit = () => {
                                     )
                                 })}
                             </Flex>
-                            <img src={image} style={{width: '35em', height: '25em', marginTop: '3em'}} />
+                            <img src={image} alt="Edited photo" />
                         </Flex>
                     </Edit>
                 </Flex>

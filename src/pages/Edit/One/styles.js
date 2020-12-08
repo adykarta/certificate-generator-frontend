@@ -98,4 +98,10 @@ export const Edit = styled.div`
         width: 5em;
         margin-left: 2em;
     }
+    img{
+        width: 35em;
+        height: 25em;
+        margin-top: 3em;
+        margin-bottom: 3em;
+    }
 `
