@@ -89,14 +89,13 @@ const OneEdit = () => {
       for (let index = 0; index < inputList.length; index++) {
         formData[`item${index + 1}`] = JSON.stringify({ text: inputList[index].column, width: inputList[index].x, height: inputList[index].y });
       }
-      // formData[`item2`] = null;
-      // formData[`item3`] = null;
       setLoading(true)
       await axios.post(`${baseUrl}/certificate`, formData).then((res) => {
         console.log(res.data.data[0])
-        window.location.href = res.data.data[0].url;
+        setTimeout(() => {
+          window.open(res.data.data[0].url);
+        }, 3000);
         setLoading(false)
-        // window.location.href = `/edit-one/`
         navigate('/done')
       })
     }

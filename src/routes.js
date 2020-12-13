@@ -6,9 +6,9 @@ import CoordinatePage from './pages/Coordinate';
 import EditOne from './pages/Edit/One';
 
 const routes = [
-    { path: '/', element: <CoordinatePage /> },
+    { path: '/', element: <Homepage /> },
     { path: '/test', element: <TestPage /> },
-    { path: '/home', element: <Homepage /> },
+    { path: '/coor', element: <CoordinatePage /> },
     { path: '/upload-one', element: <UploadOne /> },
     { path: '/edit-one', element: <EditOne />},
 ];
