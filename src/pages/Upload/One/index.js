@@ -1,46 +1,20 @@
-import React, {useState, useMemo} from "react"
-import { Flex, Wrapper, Upload, Button, Footer } from "./style.js"
+import React, {useState, Fragment, useContext} from "react"
+import {Button, LinearProgress} from "@material-ui/core"
+import {PictureContext} from "../../../utils/context" 
+import { useNavigate, Navigate } from "react-router-dom"
+import axios from 'axios'
+import { Flex, Wrapper, Upload, Footer } from "./style.js"
 import Logo from "./Media/Logo2.svg"
 import { useDropzone } from 'react-dropzone';
+import { baseUrl} from '../../../utils/api'
 
-const baseStyle = {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '300px',
-    backgroundColor: 'transparent',
-    outline: 'none',
-    color: '#587AF7',
-    transition: 'border .24s ease-in-out',
-    border: '2px dashed #587AF7'
-  };
-  
-  const activeStyle = {
-    borderColor: '#2196f3'
-  };
-  
-  const acceptStyle = {
-    borderColor: '#00e676'
-  };
-  
-  const rejectStyle = {
-    borderColor: '#ff1744'
-  };
-
-  const thumbsContainer = {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 16
-  };
-  
-  
-  
 
 const OneUpload = () => {
-    const [files, setFiles] = useState([])
+    const navigate = useNavigate();
+    const {image, setImage} = useContext(PictureContext);
+    const [files, setFiles] = useState([]);
+    const [pic, setPic] = useState('');
+    const [loading, setLoading] = useState(false);
     const { getRootProps, getInputProps} 
     = useDropzone({
         accept: "image/*",
@@ -54,19 +28,48 @@ const OneUpload = () => {
             )
         }
       });
-      const images = files.map((file) => (
-        <div key={file.name}>
-            <div>
-               <p>{file.name}</p>
-            </div>
-            
-        </div>
-      ))
 
+    const onFileUpload = async () => {
+        if(files.length === 0 ){
+            alert("You must upload your image first")
+        }
+        else{
+            const formData = new FormData();
+            formData.append("file", files[0])
+            setLoading(true)
+            await axios.post(`${baseUrl}/upload`, formData).then((res) => {
+                console.log(res.data)
+                console.log(res.data.data)
+                setPic(res.data.data.path)
+                setImage({ url: res.data.data.path, filename: res.data.data.filename})
+                setLoading(false)
+                // window.location.href = `/edit-one/`
+                navigate('/edit-one')
+            })
+            
+        }
+       
+    }
+    // const [progress, setProgress] = React.useState(0);
+    // React.useEffect(() => {
+    //     const timer = setInterval(() => {
+    //       setProgress((oldProgress) => {
+    //         if (oldProgress === 100) {
+    //           return 0;
+    //         }
+    //         const diff = Math.random() * 10;
+    //         return Math.min(oldProgress + diff, 100);
+    //       });
+    //     }, 500);
+    
+    //     return () => {
+    //       clearInterval(timer);
+    //     };
+    //   }, []);
   
     console.log(files)
     return(
-        <>
+        <Fragment>
             <Wrapper>
                 <Flex direction="column" justify="center" alignItems="center">
                     <img src={Logo} alt="Logo_svg" />
@@ -77,8 +80,8 @@ const OneUpload = () => {
                             <div className="box">
                                 <div {...getRootProps()}>
                                     <input {...getInputProps()} />
-                                    {files.length == 0 ?
-                                        <p>Upload photo</p>
+                                    {files.length === 0 ?
+                                        <p>Upload Photo</p>
                                         :
                                         <p>{files[0].name}</p>
                                     }
@@ -87,16 +90,26 @@ const OneUpload = () => {
                         
                         </Flex>
                     </Upload>
-                    <Button>Go!!!</Button>
+
+                    <Button variant="contained" className="submit" onClick={onFileUpload}>Go!!!</Button>
+                    {loading ? 
+                        <Flex direction="column" justify="center" alignItems="center" style={{width: '50em'}}>
+                            <LinearProgress style={{width: '40em', marginTop: '2em'}} />
+                            <LinearProgress style={{width: '40em'}} />
+                        </Flex>
+                        
+                        :
+                        <img src={image} alt="picturess" />
+                    }
                 </Flex>
-                
             </Wrapper>
             <Flex direction="row" justify="center">
                 <Footer>
                     Copyright © 2020 Certificate Generator. All Rights Reserved.
                 </Footer>
             </Flex>
-        </>
+        </Fragment>
+            
     )
 }
 

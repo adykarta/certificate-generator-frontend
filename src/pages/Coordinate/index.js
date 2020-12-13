@@ -152,7 +152,17 @@ const CoordinatePage = () => {
                     onMouseUp={closeDragElement}
                   >
                     Column 1
-                    </div>
+                  </div>
+                  <div
+                    style={dragStyle}
+                    id="mydiv"
+                    onMouseOut={closeDragElement}
+                    onMouseDown={dragMouseDown}
+                    onMouseMove={isPressed ? elementDrag : null}
+                    onMouseUp={closeDragElement}
+                  >
+                    Column 1
+                  </div>
                   <img src={Certificate} alt="cert" style={{ width: "100%", height: "100%" }} />
                 </div>
               </Flex>

@@ -25,6 +25,17 @@ export const Wrapper = styled.div`
         align: center;
         line-height: 33px;
     }
+    .submit{
+        background: #6F9E97;
+        font-size: 17px;
+        font-weight: bold;
+        width: 11rem;
+        padding: 0.7rem 0;
+        margin-top: 1rem;
+        :hover{
+            background: #6F9E97;
+        }
+    }
 `
 
 export const Upload = styled.div`
@@ -43,6 +54,7 @@ export const Upload = styled.div`
         }
     }
 
+
 `
 
 export const Button = styled.a`
@@ -60,9 +72,10 @@ export const Button = styled.a`
 `
 
 export const Footer = styled.p`
-    position: absolute;
-    bottom: 0;
+    // position: absolute;
+    // bottom: 0;
     font-size: 20px;
     text-align: center;
-   
+    // margin-top: 15em;
+    
 `
