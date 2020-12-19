@@ -44,6 +44,10 @@ export const Upload = styled.div`
     height: 358px;
     border-radius: 25px;
 
+    .header{
+        margin: 0;
+        font-weight: 600;
+    }
     .box{
         width: 570px;
         height: 219px;
@@ -53,6 +57,7 @@ export const Upload = styled.div`
             margin-top: 3.5em;
         }
     }
+    
 
 
 `

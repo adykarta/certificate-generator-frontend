@@ -1,7 +1,7 @@
 import React, {useState, Fragment, useContext} from "react"
 import {Button, LinearProgress} from "@material-ui/core"
 import {PictureContext} from "../../../utils/context" 
-import { useNavigate, Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 import { Flex, Wrapper, Upload, Footer } from "./style.js"
 import Logo from "./Media/Logo2.svg"
@@ -13,7 +13,7 @@ const OneUpload = () => {
     const navigate = useNavigate()
     const {image, setImage} = useContext(PictureContext)
     const [files, setFiles] = useState([])
-    const [pic, setPic] = useState('')
+    // const [pic, setPic] = useState('')
     const [loading, setLoading] = useState(false)
     const { getRootProps, getInputProps} 
     = useDropzone({
@@ -40,11 +40,10 @@ const OneUpload = () => {
             await axios.post(`${baseUrl}/upload`, formData).then((res) => {
                 console.log(res.data)
                 console.log(res.data.data)
-                setPic(res.data.data.path)
+                // setPic(res.data.data.path)
                 setImage(res.data.data.path)
                 setLoading(false)
-                // window.location.href = `/edit-one/`
-                navigate('/edit-one')
+                // navigate('/edit-one')
             })
             
         }
@@ -77,6 +76,7 @@ const OneUpload = () => {
 
                     <Upload>
                         <Flex direction="column" justify="center" alignItems="center">
+                            <p className="header">Please upload your certificate template here...</p>
                             <div className="box">
                                 <div {...getRootProps()}>
                                     <input {...getInputProps()} />
@@ -99,12 +99,12 @@ const OneUpload = () => {
                         </Flex>
                         
                         :
-                        <img src={image} alt="picturess" />
+                        null
                     }
                 </Flex>
             </Wrapper>
             <Flex direction="row" justify="center">
-                <Footer>
+                <Footer style={{marginTop: '5em'}}>
                     Copyright © 2020 Certificate Generator. All Rights Reserved.
                 </Footer>
             </Flex>
