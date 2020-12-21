@@ -1,17 +1,17 @@
-import React, { useState } from "react"
-import Logo from "./Media/Logo2.svg"
+import React, { useState } from "react";
+import Logo from "./Media/Logo2.svg";
 import Certificate from "./Media/TERNGAKAK.png";
 import CloseIcon from "@material-ui/icons/Close";
 import { Flex, Wrapper, Card, Footer, WrapperImage } from "./style.js";
 
 const CoordinatePage = () => {
   const [values, setValues] = useState({
-    column1: '',
-    column2: '',
-    column3: '',
-  })
+    column1: "",
+    column2: "",
+    column3: "",
+  });
 
-  const handleChange = (opt) => e => {
+  const handleChange = (opt) => (e) => {
     if (opt === 1) {
       setValues({ column1: e.target.value });
     } else if (opt === 2) {
@@ -19,12 +19,12 @@ const CoordinatePage = () => {
     } else {
       setValues({ column3: e.target.value });
     }
-  }
+  };
 
   const handleSubmit = (e) => {
-    alert('A name was submitted: ' + values.column1);
+    alert("A name was submitted: " + values.column1);
     e.preventDefault();
-  }
+  };
 
   const [isPressed, setIsPressed] = useState(false);
   const [pos, setPos] = useState({
@@ -49,8 +49,8 @@ const CoordinatePage = () => {
     let pos1 = pos.x - e.clientX;
     let pos2 = pos.y - e.clientY;
     setPos({
-      x: e.clientX,
-      y: e.clientY,
+      x: e.target.offsetLeft + pos1,
+      y: e.target.offsetTop + pos2,
     });
     console.log(e.clientX, e.clientY);
     console.log(pos);
@@ -67,7 +67,7 @@ const CoordinatePage = () => {
     borderRadius: "10px",
     fontFamily: "Nunito",
     fontSize: "20px",
-  }
+  };
 
   const submitStyle = {
     width: "30%",
@@ -78,28 +78,43 @@ const CoordinatePage = () => {
     marginTop: "15px",
     backgroundColor: "#04253A",
     color: "white",
-  }
+  };
 
   const dragStyle = {
     borderRadius: "10px",
     fontFamily: "Nunito",
     fontSize: "20px",
     backgroundColor: "white",
-    color: "black"
+    color: "black",
   };
 
   return (
     <>
       <Wrapper>
-        <Flex direction="column" width="100%" justify="center" alignItems="center">
+        <Flex
+          direction="column"
+          width="100%"
+          justify="center"
+          alignItems="center"
+        >
           <img src={Logo} alt="Logo_svg" />
           <p>
             Certificate Generator is here to help you create all your certicate
             just a blink with your own template
           </p>
-          <div style={{padding: "0 2rem"}}>
-            <Flex direction="row" width="100%" justify="center" alignItems="center">
-              <Flex direction="column" width="40%" justify="center" alignItems="center">
+          <div style={{ padding: "0 2rem" }}>
+            <Flex
+              direction="row"
+              width="100%"
+              justify="center"
+              alignItems="center"
+            >
+              <Flex
+                direction="column"
+                width="40%"
+                justify="center"
+                alignItems="center"
+              >
                 <Card>
                   <form
                     style={{ textAlign: "left", margin: "0px 0px 0px 5rem" }}
@@ -141,8 +156,19 @@ const CoordinatePage = () => {
                   </form>
                 </Card>
               </Flex>
-              <Flex direction="column" width="60%" justify="start" alignItems="start">
-                <div style={{ position: "relative", width: "842px", height: "595px" }}>
+              <Flex
+                direction="column"
+                width="60%"
+                justify="start"
+                alignItems="start"
+              >
+                <div
+                  style={{
+                    position: "relative",
+                    width: "842px",
+                    height: "595px",
+                  }}
+                >
                   <div
                     style={dragStyle}
                     id="mydiv"
@@ -163,7 +189,11 @@ const CoordinatePage = () => {
                   >
                     Column 1
                   </div>
-                  <img src={Certificate} alt="cert" style={{ width: "100%", height: "100%" }} />
+                  <img
+                    src={Certificate}
+                    alt="cert"
+                    style={{ width: "100%", height: "100%" }}
+                  />
                 </div>
               </Flex>
             </Flex>
@@ -177,6 +207,6 @@ const CoordinatePage = () => {
       </Flex>
     </>
   );
-}
+};
 
-export default CoordinatePage
+export default CoordinatePage;
