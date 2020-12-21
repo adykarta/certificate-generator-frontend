@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useRoutes } from 'react-router-dom';
 import routes from './routes';
-import { PictureContext } from './utils/context'
+import { PictureContext, HeaderContext } from './utils/context'
 
 function App() {
   const routing = useRoutes(routes);
@@ -9,10 +9,13 @@ function App() {
     url: null,
     filename: null
   })
+  const [header, setHeader] = useState([])
   return (
     <div className="App">
-      <PictureContext.Provider value={{image, setImage}}>
-        {routing}
+      <PictureContext.Provider value={{image, setImage,}}>
+        <HeaderContext.Provider value={{header, setHeader}}>
+          {routing}
+        </HeaderContext.Provider>
       </PictureContext.Provider>
     </div>
   );
