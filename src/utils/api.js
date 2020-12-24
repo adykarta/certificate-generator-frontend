@@ -1,6 +1,6 @@
 const head = { "Content-Type": "application/json", Accept: "application/json" };
 
-const baseUrl = "http://chulsan-api.herokuapp.com/api";
+const baseUrl = "https://chulsan-api.herokuapp.com/api";
 
 export function headers() {
   return {
