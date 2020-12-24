@@ -89,14 +89,15 @@ const MultipleEdit = () => {
       await axios
         .post(`${baseUrl}/certificate/multiple`, formData)
         .then((res) => {
-          console.log(res.data.data);
-          console.log(res.data.data[0].url);
+          // await new Promise((resolve) =>
+          //   setTimeout(resolve, res.data.data[0].totalFile * 3)
+          // );
           console.log(res.data.data[0].totalFile);
           setTimeout(() => {
             setLink(res.data.data[0].url);
             setAble(false);
             // window.open(res.data.data[0].url);
-          }, res.data.data[0].totalFile * 3000);
+          }, res.data.data[0].totalFile * 4000);
           setLoading(false);
           // navigate('/done')
         });
