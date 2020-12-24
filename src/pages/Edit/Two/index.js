@@ -97,7 +97,7 @@ const MultipleEdit = () => {
             setLink(res.data.data[0].url);
             setAble(false);
             // window.open(res.data.data[0].url);
-          }, res.data.data[0].totalFile * 4000);
+          }, res.data.data[0].totalFile * 10000);
           setLoading(false);
           // navigate('/done')
         });
