@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useContext, useEffect } from "react";
 import axios from "axios";
 import Logo from "./Media/Logo2.svg";
-import { Button } from "@material-ui/core";
+import { Button, LinearProgress } from "@material-ui/core";
 import { baseUrl } from "../../../utils/api";
 import { Flex, Wrapper, Box, Edit } from "./styles";
 import { useNavigate, Navigate } from "react-router-dom";
@@ -14,6 +14,7 @@ const MultipleEdit = () => {
   const [link, setLink] = useState("");
   const [able, setAble] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [generating, setGenerating] = useState(false);
 
   // const handleChange = (event, index) => {
   // 	const values = [...inputList];
@@ -86,16 +87,15 @@ const MultipleEdit = () => {
       // if (header.length < 3)
       console.log(formData);
       setLoading(true);
+      setGenerating(true);
       await axios
         .post(`${baseUrl}/certificate/multiple`, formData)
         .then((res) => {
-          // await new Promise((resolve) =>
-          //   setTimeout(resolve, res.data.data[0].totalFile * 3)
-          // );
           console.log(res.data.data[0].totalFile);
           setTimeout(() => {
             setLink(res.data.data[0].url);
             setAble(false);
+            setGenerating(false);
             // window.open(res.data.data[0].url);
           }, res.data.data[0].totalFile * 10000);
           setLoading(false);
@@ -161,6 +161,7 @@ const MultipleEdit = () => {
                   );
                 })}
                 <Button
+                  disabled={generating}
                   variant="contained"
                   color="primary"
                   className="generate"
@@ -168,16 +169,29 @@ const MultipleEdit = () => {
                 >
                   Generate
                 </Button>
-                <a href={link} download />
-                <Button
-                  disabled={able}
-                  variant="contained"
-                  color="primary"
-                  className="download"
-                  onClick={() => multDownload(link)}
-                >
-                  Download
-                </Button>
+                {able && generating ? (
+                  <Flex direction="column" justify="center" alignItems="start">
+                    <LinearProgress
+                      style={{ width: "10em", marginTop: "2em" }}
+                    />
+                    {/* <LinearProgress style={{ width: "40em" }} /> */}
+                  </Flex>
+                ) : (
+                  <>
+                    <a href={link} download />
+
+                    <Button
+                      style={{ marginTop: "1rem" }}
+                      disabled={able}
+                      variant="contained"
+                      color="primary"
+                      className="download"
+                      onClick={() => multDownload(link)}
+                    >
+                      Download
+                    </Button>
+                  </>
+                )}
               </Flex>
             </Box>
           </Flex>

@@ -102,9 +102,8 @@ const OneEdit = () => {
         console.log(res.data.data[0]);
         setTimeout(() => {
           window.open(res.data.data[0].url);
+          setLoading(false);
         }, 3000);
-        setLoading(false);
-        navigate("/done");
       });
     }
   };
@@ -182,6 +181,7 @@ const OneEdit = () => {
                 })}
                 <Button
                   variant="contained"
+                  disabled={loading}
                   color="primary"
                   className="generate"
                   onClick={onCertUpload}
@@ -189,14 +189,18 @@ const OneEdit = () => {
                   Generate
                 </Button>
               </Flex>
-              {/* {loading ?
-                <Flex direction="column" justify="center" alignItems="center" style={{ width: '50em' }}>
-                  <LinearProgress style={{ width: '40em', marginTop: '2em' }} />
-                  <LinearProgress style={{ width: '40em' }} />
+              {loading ? (
+                <Flex
+                  direction="column"
+                  justify="center"
+                  alignItems="start"
+                  style={{ width: "30em" }}
+                >
+                  <LinearProgress style={{ width: "20em" }} />
                 </Flex>
-                :
+              ) : (
                 <p></p>
-              } */}
+              )}
             </Box>
           </Flex>
           <Flex
