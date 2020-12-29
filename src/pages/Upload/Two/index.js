@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react'
-import {Button, LinearProgress} from "@material-ui/core"
+import {Button, LinearProgress, Dialog, DialogContent, DialogTitle, Stepper, Step, StepLabel, Typography} from "@material-ui/core"
 import {PictureContext, HeaderContext} from "../../../utils/context" 
 import { useNavigate } from "react-router-dom"
 import axios from 'axios'
@@ -89,6 +89,49 @@ const UploadMultiple = () => {
         }
        
     }
+    
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => {
+        setOpen(true)
+    }
+    const handleClose = () => {
+        setOpen(false)
+        setActiveStep(0)
+    }
+
+    function getSteps() {
+    return ['Upload your template photo', 'Upload your excel file', "Click 'Go' Button", 'Edit your certificate'];
+    }
+    
+    function getStepContent(stepIndex) {
+        switch (stepIndex) {
+            case 0:
+            return 'You can upload your certificate tempalate by click the upload text or just drag and drop the file';
+            case 1:
+            return 'Makesure your excel file is in accordance with the format'
+            case 2:
+            return 'Wait until process is done and you will be redirected to edit page';
+            case 3:
+            return 'Your header is set according to your excel file. You can edit your certificate by adjust the text position';
+            default:
+            return 'Unknown stepIndex';
+        }
+    }
+
+    const [activeStep, setActiveStep] = React.useState(0);
+    const steps = getSteps();
+
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+
+    const handleReset = () => {
+        setActiveStep(0);
+    };
 
     return(
         <>
@@ -129,6 +172,9 @@ const UploadMultiple = () => {
                         null
                     }
                     <Button variant="contained" className="submit" onClick={onFileUpload}>Go!!!</Button>
+                    <Button variant="outlined" color="primary" onClick={handleOpen} style={{marginTop: '2em'}}>
+                        Open Tutorial Dialog
+                    </Button>
                     {loading ? 
                         <Flex direction="column" justify="center" alignItems="center" style={{width: '50em'}}>
                             <LinearProgress style={{width: '40em', marginTop: '2em'}} />
@@ -140,6 +186,47 @@ const UploadMultiple = () => {
                     }
                 </Flex>
             </Wrapper>
+            <Dialog 
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"Edit Multiple Certificate Tutorial"}</DialogTitle>
+                <DialogContent>
+                    <Stepper activeStep={activeStep} alternativeLabel>
+                        {steps.map((label) => (
+                        <Step key={label}>
+                            <StepLabel>{label}</StepLabel>
+                        </Step>
+                        ))}
+                    </Stepper>
+                    <div>
+                        {activeStep === steps.length ? (
+                        <div>
+                            <Typography>All steps completed</Typography>
+                            <Button onClick={handleReset}>Reset</Button>
+                        </div>
+                        ) : (
+                        <div>
+                            <Typography >{getStepContent(activeStep)}</Typography>
+                            <div style={{marginTop: '2em', marginBottom: '2em'}}>
+                            <Button
+                                disabled={activeStep === 0}
+                                onClick={handleBack}
+                                // className={classes.backButton}
+                            >
+                                Back
+                            </Button>
+                            <Button variant="contained" color="primary" onClick={ activeStep === steps.length - 1 ? handleClose : handleNext}>
+                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                            </Button>
+                            </div>
+                        </div>
+                        )}
+                    </div>
+                </DialogContent>
+            </Dialog>
             <Flex direction="row" justify="center">
                 <Footer style={{marginTop: '5em'}}>
                     Copyright © 2020 Certificate Generator. All Rights Reserved.
