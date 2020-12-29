@@ -12,6 +12,12 @@ chulsan-certificate-generator.herokuapp.com
 git clone https://github.com/adykarta/certificate-generator-frontend.git
 cd certificate-generator-frontend
 ```
+## How to Run
+
+```javascript
+yarn install
+yarn start
+```
 
 ## Development
 
@@ -23,7 +29,7 @@ git commit -m [commit-message]
 git push origin [branch-name]
 ```
 
-Dont forget to merge request to master branch!
+Dont forget to merge request to ady branch!
 
 ## Meet the Team
 
