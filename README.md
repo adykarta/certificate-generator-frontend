@@ -36,3 +36,6 @@ Dont forget to merge request to ady branch!
 - Bramantio Krisno Aji - 1706024495
 - Mohammad Hasan Albar - 1706025056
 - Muhamad Istiady Kartadibrata - 1706025283
+
+## License
+- Apache License
